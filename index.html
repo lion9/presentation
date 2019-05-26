@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>P5.JS</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/p5.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<!--<link rel="stylesheet" href="lib/css/monokai.css">-->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+          <h1>p5<sub>*</sub>js</h1>
+          <aside class="notes">
+            <p>This presentation is about p5.js. What is p5.js? Who should or might you be to learn about it? What might you use it for? Let me give you a little context first.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h1>Processing</h1>
+          <p>A flexible software sketchbook and a language for learning how to code within the context of visual arts</p>
+          <aside class="notes">
+            <p>There is a thing called Processing that is a flexible software sketchbook and a language for learning how to code within the context of visual arts. Processing is
+              a project started in 2001 by Casey Reas and Benjamin Fry, two students at the MIT media lab trying to make a tool that could help them do their work.
+              Interestingly enough, Processing, when it was first created back in 2001, was built on top of the language called Java, which can be easily explained. Why? Yes, because of
+              Java Applets, which at the time were used to display dynamic content on a Web-page. However, if you fast-forward 18 years later, to 2019...
+              Where have you last seen a Java Applet on the Web? The language used in the browser these days is something called JavaScript.
+              So the question arose - what language would you pick if Processing was invented today?</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Creator of p5<sub>*</sub>js</h3>
+          <h1></h1>
+          <p>Lauren McCarthy</p>
+          <img src="lib/img/lauren.jpg" width="500px" alt="Lauren McCarthy"/>
+          <aside class="notes">
+            <p>And the person who answered this question was Lauren McCarthy, an LA-based artist, who started a new project called p5,js, in collaboration with the Processing Foundation. It
+            eventually ended up in creating the p5 library, which one might use to create sketches, art, data visualization etc. You might even make websites like a web-designer... There's a lot of different paths
+            you can choose and take. So, here are the ways how we can use it.</p>
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h3>https://editor.p5js.org/</h3>
+            <aside class="notes">
+              <p>There's a tool called p5.js web editor. Using it you can try to create something right on the web-page.</p>
+            </aside>
+          </section>
+
+          <section>
+               <img class="editor" src="lib/img/editor.png" alt="P5 Editor"/>
+            <aside class="notes">
+              <p>Clean and pretty simple interface. I would just recommend to check the “Auto-refresh” checkbox to enable auto-refreshing as you type your code and, maybe, choose
+                the dark theme in the settings.</p>
+            </aside>
+          </section>
+
+          <section>
+              <pre><code data-trim data-noescape>
+let sketch = function (p5) {
+    p5.setup = function () {
+        let c1 = p5.createCanvas(200, 200);
+        c1.parent('firstCanvas');
+        p5.createP("&lt;h1&gt;This is some text&lt;h1&gt;");
+    }
+
+    p5.draw = function () {
+        p5.background(220, 50, 45);
+        p5.rect(20,40,10, 50);
+    }
+};
+new p5(sketch, window.document.getElementById('container'));
+              </code></pre>
+              <aside class="notes">
+                <p>To avoid jumbling the p5 code up with other code, and the p5 functions with functions from other libraries you might use, there's a way to “isolate” p5
+                using its instance mode. We can also restrict its scope to a particular container</p>
+              </aside>
+            </section>
+
+            <section>
+              <pre><code data-trim>
+                  function setup() {
+                    createCanvas(400, 400);
+                  }
+                  function draw() {
+                    background(220, 50, 45);
+                    ellipse(50, 50, 30, 80);
+                  }
+              </code></pre>
+              <aside class="notes">
+                <p>However, in further examples I will be using so-called global mode. So let's take a look at the basic syntax.
+                  In order to draw with p5, we need a canvas. And some sort of a coordinate system to work inside it.
+                </p>
+              </aside>
+            </section>
+
+        </section>
+
+        <section>
+          <h3>Coordinate system</h3>
+          <img class="coordinates1" src="lib/img/cartesian.png" width="300px" alt="Cartesian coordinate System"/>
+          <img class="coordinates2" src="lib/img/coordinates.png" height="300px" alt="Coordinate System"/>
+          <aside class="notes">
+            <p>In the geometry class, we use the Cartesian coordinate system.
+              The Cartesian system has the X-axis going from left to right, and the Y-axis going from bottom to top. Zero-zero is right in the middle, and all numbers below it are
+              negative ones on the Y-axis, and all numbers to the left of zero-zero are negative on the X-axis. In the canvas, the coordinate system is different.
+              Here, the zero-zero point is the top left. And the X-number is getting bigger as you go to the right, and the Y-number gets bigger as you go down. </p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>createCanvas()</h3>
+          <pre><code>
+          function setup() {
+            createCanvas(400, 400);
+            background(205, 0, 0);
+            line(0, 0, width, height);
+          }
+          </code></pre>
+          <img class="editor" src="lib/img/square.png" alt="Square crossed with a line"/>
+          <aside class="notes">
+            <p>First, we need a setup. In this particular example we're creating a square canvas, 400 pixels wide and tall, giving it some nice
+            grey background using a shorthand notation of 205, 0, 0, and adding a line with its starting point at x-zero, y-zero, and the second point at x-width, y-height.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>draw()</h3>
+          <pre><code data-trim>
+          let yPos = 0;
+          function setup() {
+            createCanvas(150, 150);
+            frameRate(30);
+          }
+          function draw() {
+            background(205);
+            yPos = yPos - 1;
+            if (yPos < 0) {
+              yPos = height;
+            }
+            line(0, yPos, width, yPos);
+          }
+          </code></pre>
+          <img class="editor" src="lib/img/draw.gif" width="150px" alt="Square with a moving line"/>
+          <aside class="notes">
+            <p>While the setup function runs only once, there's another function, draw(), which draws and redraws the canvas elements, being a replacement for
+            the RequestAnimationFrame, render and update functions usually used in normal JavaScripts. A brief overview - here, we're creating a square
+              canvas with the side of 150 pixels. Then, we are setting the frame rate. And then, within the block of the draw() function, we're writing the logic of
+              the line's movement.
+            These are very basic sketches, though, nothing to be proud of. So on the next slides you can see some really beautiful sketches created by Étienne Jacob</p>
+          </aside>
+        </section>
+
+
+        <section>
+          <img src="lib/img/animation.gif" width="500px" alt="Animation"/>
+        </section>
+
+        <section>
+          <img src="lib/img/animation1.gif" width="500px" alt="Animation1"/>
+        </section>
+
+        <section>
+          <img src="lib/img/animation2.gif" width="500px" alt="Animation2"/>
+          <p>* All sketches by Étienne Jacob</p>
+        </section>
+
+        <section>
+            <h3>p5 Addons</h3>
+            <aside class="notes">
+                <p>Of course, being an actively developing project, over time, the p5 library has got additional features and functionality, and has been extended using many addons.
+                    To name just a few.</p>
+            </aside>
+        </section>
+
+        <section>
+          <h3>p5.dom </h3>
+          <p>Lets you interact with HTML5 objects beyond the canvas, including video, audio, webcam, input, and text.</p>
+        </section>
+
+        <section>
+          <h3>p5.sound</h3>
+          <p>Extends p5 with Web Audio functionality including audio input, playback, analysis and synthesis.</p>
+        </section>
+
+        <section>
+          <h3>p5.accessibility</h3>
+          <p>Makes the p5 canvas more accessible to people who are blind and visually impaired.</p>
+        </section>
+
+        <section>
+          <h3>p5.experience</h3>
+          <p>Extensive library for p5.js that adds additional event-listening functionality for creating canvas-based web applications.</p>
+        </section>
+
+        <section>
+            <h4>Official documentation</h4>
+            <h4>Articles</h4>
+            <h4>YouTube videos</h4>
+        </section>
+
+        <section>
+            <h3>Thanks for watching!</h3>
+        </section>
+
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
